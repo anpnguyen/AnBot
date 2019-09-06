@@ -5,7 +5,7 @@ const app = express();
 app.use(express.json({ extended: false }));
 
 
-app.use("/api/df_routes", require("./routes/api/df_routes.js"));
+app.use("/api", require("./routes/api/df_routes.js"));
 
 
 const PORT = process.env.PORT || 5000;
