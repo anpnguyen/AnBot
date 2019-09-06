@@ -3,11 +3,18 @@
 const dialogflow = require("dialogflow");
 const structjson = require('structjson')
 
-const sessionClient = new dialogflow.SessionsClient();
+const credentials ={
+    client_email: process.env.GOOGLE_CLIENT_EMAIL,
+    private_key: process.env.GOOGLE_PRIVATE_KEY
+}
+const projectID= process.env.process.env.GOOGLE_PROJECT_ID;
+const sessionClient = new dialogflow.SessionsClient({projectID,credentials});
 const sessionPath = sessionClient.sessionPath(
   process.env.GOOGLE_PROJECT_ID,
   process.env.DIALOGFLOW_SESSION_ID
 );
+
+
 
 module.exports = {
   textQuery: async function(text, parameters = {}) {
