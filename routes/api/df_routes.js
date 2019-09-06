@@ -16,8 +16,10 @@ router.post("/df_text_query", async (req, res) => {
         res.send(responses[0].queryResult);
 });
 
-router.post("/api/df_event_query", (req, res) => {
-  res.send({ do: "event_query" });
+router.post("/df_event_query", async (req, res) => {
+  console.log('event')
+  let responses = await chatbot.eventQuery(req.body.event,  req.body.parameters);
+        res.send(responses[0].queryResult);
 });
 
 module.exports = router;
