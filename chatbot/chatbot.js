@@ -2,10 +2,10 @@
 
 const dialogflow = require("dialogflow");
 const structjson = require("structjson");
+const Registration = require('../models/Registration')
 
 const credentials = {
   client_email: process.env.GOOGLE_CLIENT_EMAIL,
-  // private_key: JSON.parse(process.env.GOOGLE_PRIVATE_KEY)
   private_key: process.env.GOOGLE_PRIVATE_KEY
 };
 const projectID = process.env.GOOGLE_PROJECT_ID;
@@ -58,6 +58,38 @@ module.exports = {
   },
 
   handleAction: function(responses) {
+    let self = module.exports
+    let queryResult = responses[0].queryResult
+
+    console.log('calling')
+    console.log(queryResult.action)
+
+    switch(queryResult.action){
+      case "recommendcourses.recommendcourses-yes":
+        if(queryResult.allRequiredParamsPresent){
+          self.saveRegistration(queryResult.parameters.fields)
+        }
+    }
     return responses;
+  },
+
+  saveRegistration: async (fields)=>{
+    const registrationData = new Registration({
+      name: fields.name.stringValue,
+      address: fields.address.stringValue,
+      phone: fields.phone.stringValue,
+      email: fields.email.stringValue      
+    })
+
+    try{
+      let res = await registrationData.save()
+      console.log(res)
+    }catch(err){
+      console.log(err)
+
+    }
   }
+
+
+  
 };
