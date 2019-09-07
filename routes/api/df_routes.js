@@ -18,6 +18,7 @@ router.post("/df_text_query", async (req, res) => {
 
 router.post("/df_event_query", async (req, res) => {
   console.log('event')
+  console.log(process.env.GOOGLE_PRIVATE_KEY)
   let responses = await chatbot.eventQuery(req.body.event,  req.body.parameters);
         res.send(responses[0].queryResult);
 });

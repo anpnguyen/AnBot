@@ -5,7 +5,7 @@ const structjson = require("structjson");
 
 const credentials = {
   client_email: process.env.GOOGLE_CLIENT_EMAIL,
-  private_key: process.env.GOOGLE_PRIVATE_KEY
+  private_key: JSON.parse(process.env.GOOGLE_PRIVATE_KEY)
 };
 const projectID = process.env.GOOGLE_PROJECT_ID;
 const sessionClient = new dialogflow.SessionsClient({ projectID: projectID, credentials: credentials });
