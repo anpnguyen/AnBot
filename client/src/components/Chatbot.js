@@ -3,7 +3,7 @@ import axios from "axios";
 import Messages from "./Messages";
 import Card from "./Card";
 import QuickReply from "./QuickReply";
-// import QuickReplyChild from './QuickReplyChild'
+
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([]);
@@ -28,7 +28,7 @@ const Chatbot = () => {
     setMessages([...messages, says]);
 
     try {
-      const response = await axios.post("/api/df_text_query", {
+      const response = await axios.post("/df_text_query", {
         text: userText
       });
 
@@ -52,7 +52,7 @@ const Chatbot = () => {
   }, [response]);
 
   const df_event_query = async eventName => {
-    const res = await axios.post("/api/df_event_query", { event: eventName });
+    const res = await axios.post("/df_event_query", { event: eventName });
 
     for (let msg of res.data.fulfillmentMessages) {
       let says = {
@@ -138,8 +138,9 @@ const Chatbot = () => {
           }
         }
       };
-      //   setMessages([...messages, says]);
+      
       df_text_query(formData.userMessage);
+      setTimeout(setFormData({userMessage:""}),0)
     }
   };
 

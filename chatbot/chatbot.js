@@ -1,24 +1,24 @@
-"use strict";
-
 const dialogflow = require("dialogflow");
 const structjson = require("structjson");
-const Registration = require('../models/Registration')
+const Registration = require("../models/Registration");
 
 const credentials = {
   client_email: process.env.GOOGLE_CLIENT_EMAIL,
   private_key: process.env.GOOGLE_PRIVATE_KEY
 };
 const projectID = process.env.GOOGLE_PROJECT_ID;
-const sessionClient = new dialogflow.SessionsClient({ projectID: projectID, credentials: credentials });
+const sessionClient = new dialogflow.SessionsClient({
+  projectID: projectID,
+  credentials: credentials
+});
 
 const sessionPath = sessionClient.sessionPath(
   process.env.GOOGLE_PROJECT_ID,
   process.env.DIALOGFLOW_SESSION_ID
 );
 
-module.exports = {
+const chatbot = {
   textQuery: async function(text, parameters = {}) {
-    let self = module.exports;
     const request = {
       session: sessionPath,
       queryInput: {
@@ -35,12 +35,11 @@ module.exports = {
     };
 
     let responses = await sessionClient.detectIntent(request);
-    responses = await self.handleAction(responses);
+    responses = await this.handleAction(responses);
     return responses;
   },
 
   eventQuery: async function(event, parameters = {}) {
-    let self = module.exports;
     const request = {
       session: sessionPath,
       queryInput: {
@@ -53,43 +52,36 @@ module.exports = {
     };
 
     let responses = await sessionClient.detectIntent(request);
-    responses = await self.handleAction(responses);
+    responses = await this.handleAction(responses);
     return responses;
   },
 
   handleAction: function(responses) {
-    let self = module.exports
-    let queryResult = responses[0].queryResult
+    let queryResult = responses[0].queryResult;
 
-    console.log('calling')
-    console.log(queryResult.action)
-
-    switch(queryResult.action){
+    switch (queryResult.action) {
       case "recommendcourses.recommendcourses-yes":
-        if(queryResult.allRequiredParamsPresent){
-          self.saveRegistration(queryResult.parameters.fields)
+        if (queryResult.allRequiredParamsPresent) {
+          this.saveRegistration(queryResult.parameters.fields);
         }
     }
     return responses;
   },
 
-  saveRegistration: async (fields)=>{
+  saveRegistration: async fields => {
     const registrationData = new Registration({
       name: fields.name.stringValue,
       address: fields.address.stringValue,
       phone: fields.phone.stringValue,
-      email: fields.email.stringValue      
-    })
+      email: fields.email.stringValue
+    });
 
-    try{
-      let res = await registrationData.save()
-      console.log(res)
-    }catch(err){
-      console.log(err)
-
+    try {
+      let res = await registrationData.save();
+    } catch (err) {
+      console.log(err);
     }
   }
-
-
-  
 };
+
+module.exports = chatbot;
