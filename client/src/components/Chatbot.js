@@ -1,6 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, Fragment } from "react";
 import axios from "axios";
 import Messages from "./Messages";
+import Card from "./Card";
+import QuickReply from "./QuickReply";
+// import QuickReplyChild from './QuickReplyChild'
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([]);
@@ -14,6 +17,15 @@ const Chatbot = () => {
 
   const df_text_query = async userText => {
     console.log("calling text");
+    let says = {
+      speaks: "user",
+      msg: {
+        text: {
+          text: userText
+        }
+      }
+    };
+    setMessages([...messages, says]);
 
     try {
       const response = await axios.post("/api/df_text_query", {
@@ -21,12 +33,11 @@ const Chatbot = () => {
       });
 
       for (let msg of response.data.fulfillmentMessages) {
+        // console.log(JSON.stringify(msg))
         let says = {
           speaks: "bot",
           msg: msg
         };
-        console.log(says.msg);
-
         setResponse(says);
       }
     } catch (err) {
@@ -36,7 +47,6 @@ const Chatbot = () => {
 
   useEffect(() => {
     if (response) {
-      console.log(response);
       setMessages([...messages, response]);
     }
   }, [response]);
@@ -54,16 +64,58 @@ const Chatbot = () => {
     }
   };
 
+  const renderCards = cards => {
+    return cards.map((card, i) => <Card key={i} payload={card.structValue} />);
+  };
+
+  const renderQuickReplies = (quickReplies, i) => {
+    return (
+      <QuickReply
+        key={i}
+        payload={quickReplies}
+        speaks="bot"
+        replyClick={handleQuickReplyPayload}
+      />
+    );
+  };
+
   const chatbotMessages = stateMessages => {
     if (stateMessages) {
       return messages.map((message, i) => {
-        return (
-          <Messages
-            speaks={message.speaks}
-            key={i}
-            text={message.msg.text.text}
-          />
-        );
+        if (message.msg && message.msg.text && message.msg.text.text) {
+          return (
+            <Messages
+              speaks={message.speaks}
+              key={i}
+              text={message.msg.text.text}
+            />
+          );
+        } else if (
+          message.msg &&
+          message.msg.payload &&
+          message.msg.payload.fields &&
+          message.msg.payload.fields.cards
+        ) {
+          return (
+            <Fragment key={i}>
+              {renderCards(message.msg.payload.fields.cards.listValue.values)}
+            </Fragment>
+          );
+        } else if (
+          message.msg &&
+          message.msg.payload &&
+          message.msg.payload.fields &&
+          message.msg.payload.fields.quickReplies
+        ) {
+          return (
+            <Fragment>
+              <p>{message.msg.payload.fields.text.stringValue}</p>
+              {renderQuickReplies(
+                message.msg.payload.fields.quickReplies.listValue.values
+              )}
+            </Fragment>
+          );
+        }
       });
     } else {
       return null;
@@ -86,7 +138,7 @@ const Chatbot = () => {
           }
         }
       };
-      setMessages([...messages, says]);
+      //   setMessages([...messages, says]);
       df_text_query(formData.userMessage);
     }
   };
@@ -98,11 +150,25 @@ const Chatbot = () => {
   });
 
   useEffect(() => {
-    console.log(messages);
     if (lastMessage) {
       lastMessage.current.scrollIntoView();
     }
   }, [messages]);
+
+  const handleQuickReplyPayload = (event, payload, text) => {
+    event.preventDefault();
+    event.stopPropagation();
+    console.log(payload);
+
+    switch (payload) {
+      case "training_masterclass":
+        df_event_query("MASTERCLASS");
+        break;
+      default:
+        df_text_query(text);
+        break;
+    }
+  };
 
   return (
     <div>
