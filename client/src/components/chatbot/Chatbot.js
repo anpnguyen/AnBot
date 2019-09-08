@@ -1,20 +1,16 @@
 import React, { useState, useEffect, useRef, Fragment } from "react";
 import axios from "axios";
 import ChatbotMessages from "./ChatbotMessages";
-import Back from '../../images/Wavey-Fingerprint.svg'
+import Back from "../../images/Wavey-Fingerprint.svg";
 
-// import Messages from "./Messages";
-// import Card from "./Card";
-// import QuickReply from "./QuickReply";
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([]);
   const [response, setResponse] = useState();
   const [formData, setFormData] = useState({ userMessage: "" });
+  const [isOpen, setIsOpen] = useState(false);
   const lastMessage = useRef();
   const inputFocus = useRef();
-
-
 
   useEffect(() => {
     if (response) {
@@ -25,6 +21,8 @@ const Chatbot = () => {
   useEffect(() => {
     if (inputFocus) {
       inputFocus.current.focus();
+    }else{
+      return null
     }
   });
 
@@ -35,7 +33,6 @@ const Chatbot = () => {
   }, [messages]);
 
   const dialogflow_text_query = async userText => {
-    
     let says = {
       speaks: "user",
       msg: {
@@ -80,20 +77,18 @@ const Chatbot = () => {
     dialogflow_event_query("welcome");
   }, []);
 
-
   const chatbotMessages = stateMessages => {
     if (stateMessages) {
       return messages.map((message, i) => {
         if (message.msg && message.msg.text && message.msg.text.text) {
           return (
-            
             <ChatbotMessages
               speaks={message.speaks}
               key={i}
               text={message.msg.text.text}
             />
           );
-        }  
+        }
       });
     } else {
       return null;
@@ -111,34 +106,38 @@ const Chatbot = () => {
     }
   };
 
-  const style ={
-    backgroundImage: `url(${Back})`
-  }
+  const style = {
+    backgroundImage: `url(${Back})`,
+    backgroundSize: "cover"
+  };
   return (
-    <div className="chatbot" style={style}>
-      
-      <div className='chatbotHeader'>
-        <div className="chatbotheaderX">
-          x
-        </div>
+    <>
+    
+    <div className={`chatbot ${isOpen?'open': "close"}`} style={style}>
+      <div className="chatbotHeader">
+        <div className="chatbotheaderX" onClick={()=>setIsOpen(!isOpen)}>x</div>
       </div>
       <div className="chatbotMessagesContainer">
         {chatbotMessages(messages)}
         <div ref={lastMessage}></div>
       </div>
       <div className="chatbotInput">
-      <input
-        type="text"
-        name="userMessage"
-        value={formData.userMessage}
-        onChange={handleFormChange}
-        onKeyPress={handleKeyPress}
-        ref={inputFocus}
-        placeholder="Enter your text here"
-      />
+        <input
+          type="text"
+          name="userMessage"
+          value={formData.userMessage}
+          onChange={handleFormChange}
+          onKeyPress={handleKeyPress}
+          ref={inputFocus}
+          placeholder="Enter your text here"
+        />
       </div>
-      
     </div>
+
+    <div className={`${!isOpen?'open': "close"} chatbotButtonContainer`}>
+      <button className='chatbotButton' onClick={()=> setIsOpen(!isOpen)}>Chat with me!</button>
+    </div>
+    </>
   );
 };
 
