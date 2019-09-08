@@ -79,6 +79,7 @@ p {
 .chatbotMessage {
   display: flex;
   margin: 10px 0;
+  align-items: center
 }
 
 .chatbotMessageFloat {
@@ -95,6 +96,7 @@ p {
   border-radius: 25px;
   min-width: 50px;
   min-height: 50px;
+  max-height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -111,7 +113,8 @@ p {
   align-items: center;
   justify-content: center;
   order: 2;
-  font-weight: bold
+  font-weight: bold;
+  max-height: 50px;
 }
 
 .messageArea {
@@ -223,4 +226,29 @@ p {
 .landingImg{
   width:200px;
   margin: 15px 0
+}
+
+.quickReplyContainer{
+  width:100%;
+  display:flex;
+  justify-content: space-around;
+  padding: 0 10px
+}
+
+.quickReply{
+  width: 120px;
+  background: rgb(228, 207, 207);
+  height: 50px;
+  border-radius: 10px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  text-transform: uppercase
+ 
+}
+
+.quickReply:hover{
+  background: rgb(226, 195, 195);
+  cursor: pointer;
 }

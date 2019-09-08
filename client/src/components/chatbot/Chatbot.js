@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef, Fragment } from "react";
 import axios from "axios";
 import ChatbotMessages from "./ChatbotMessages";
 import Back from "../../images/Wavey-Fingerprint.svg";
-
+import QuickReply from "./QuickReply";
+// import QuickReplyChild from './QuickReplyChild'
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([]);
@@ -21,8 +22,8 @@ const Chatbot = () => {
   useEffect(() => {
     if (inputFocus) {
       inputFocus.current.focus();
-    }else{
-      return null
+    } else {
+      return null;
     }
   });
 
@@ -77,6 +78,35 @@ const Chatbot = () => {
     dialogflow_event_query("welcome");
   }, []);
 
+  const renderQuickReplies = (quickReplies, i) => {
+    return (
+      <QuickReply
+        key={i}
+        payload={quickReplies}
+        speaks="AnBot"
+        replyClick={handleQuickReplyPayload}
+      />
+    );
+  };
+
+  const handleQuickReplyPayload = (event, payload, text) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    switch (payload) {
+      case "career_science":
+        dialogflow_event_query("CAREERSCIENCE");
+
+        break;
+      case "career_webDev":
+        dialogflow_event_query("CAREERWEBDEV");
+        break;
+      default:
+        dialogflow_text_query(text);
+        break;
+    }
+  };
+
   const chatbotMessages = stateMessages => {
     if (stateMessages) {
       return messages.map((message, i) => {
@@ -87,6 +117,19 @@ const Chatbot = () => {
               key={i}
               text={message.msg.text.text}
             />
+          );
+        } else if (
+          message.msg &&
+          message.msg.payload &&
+          message.msg.payload.fields &&
+          message.msg.payload.fields.quickReplies
+        ) {
+          return (
+            <Fragment key={i}>
+              {renderQuickReplies(
+                message.msg.payload.fields.quickReplies.listValue.values
+              )}
+            </Fragment>
           );
         }
       });
@@ -112,31 +155,34 @@ const Chatbot = () => {
   };
   return (
     <>
-    
-    <div className={`chatbot ${isOpen?'open': "close"}`} style={style}>
-      <div className="chatbotHeader">
-        <div className="chatbotheaderX" onClick={()=>setIsOpen(!isOpen)}>x</div>
+      <div className={`chatbot ${isOpen ? "open" : "close"}`} style={style}>
+        <div className="chatbotHeader">
+          <div className="chatbotheaderX" onClick={() => setIsOpen(!isOpen)}>
+            x
+          </div>
+        </div>
+        <div className="chatbotMessagesContainer">
+          {chatbotMessages(messages)}
+          <div ref={lastMessage}></div>
+        </div>
+        <div className="chatbotInput">
+          <input
+            type="text"
+            name="userMessage"
+            value={formData.userMessage}
+            onChange={handleFormChange}
+            onKeyPress={handleKeyPress}
+            ref={inputFocus}
+            placeholder="Enter your text here"
+          />
+        </div>
       </div>
-      <div className="chatbotMessagesContainer">
-        {chatbotMessages(messages)}
-        <div ref={lastMessage}></div>
-      </div>
-      <div className="chatbotInput">
-        <input
-          type="text"
-          name="userMessage"
-          value={formData.userMessage}
-          onChange={handleFormChange}
-          onKeyPress={handleKeyPress}
-          ref={inputFocus}
-          placeholder="Enter your text here"
-        />
-      </div>
-    </div>
 
-    <div className={`${!isOpen?'open': "close"} chatbotButtonContainer`}>
-      <button className='chatbotButton' onClick={()=> setIsOpen(!isOpen)}>Chat with me!</button>
-    </div>
+      <div className={`${!isOpen ? "open" : "close"} chatbotButtonContainer`}>
+        <button className="chatbotButton" onClick={() => setIsOpen(!isOpen)}>
+          Chat with me!
+        </button>
+      </div>
     </>
   );
 };
