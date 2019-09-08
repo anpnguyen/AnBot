@@ -1,0 +1,61 @@
+  const renderQuickReplies = (quickReplies, i) => {
+    return (
+      <QuickReply
+        key={i}
+        payload={quickReplies}
+        speaks="bot"
+        replyClick={handleQuickReplyPayload}
+      />
+    );
+  };
+
+
+  else if (
+          message.msg &&
+          message.msg.payload &&
+          message.msg.payload.fields &&
+          message.msg.payload.fields.quickReplies
+        ) {
+          return (
+            <Fragment>
+              <p>{message.msg.payload.fields.text.stringValue}</p>
+              {renderQuickReplies(
+                message.msg.payload.fields.quickReplies.listValue.values
+              )}
+            </Fragment>
+          );
+        }
+
+        
+  const handleQuickReplyPayload = (event, payload, text) => {
+    event.preventDefault();
+    event.stopPropagation();
+    console.log(payload);
+
+    switch (payload) {
+      case "training_masterclass":
+        dialogflow_event_query("MASTERCLASS");
+        break;
+      default:
+        dialogflow_text_query(text);
+        break;
+    }
+  };
+
+    const renderCards = cards => {
+    return cards.map((card, i) => <Card key={i} payload={card.structValue} />);
+  };
+
+  else if (
+          message.msg &&
+          message.msg.payload &&
+          message.msg.payload.fields &&
+          message.msg.payload.fields.cards
+        ) {
+          return (
+            
+            <Fragment key={i}>
+              {renderCards(message.msg.payload.fields.cards.listValue.values)}
+            </Fragment>
+          );
+        }

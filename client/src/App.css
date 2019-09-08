@@ -1,37 +1,142 @@
-.App {
-  text-align: center;
+html, body, .App, #root{
+  height:100%;
+  width:100%;
+  margin:0;
+  font-size: 14px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+    
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+p{
+  margin:0
+}
+.landing{
+  height:100%;
+  width:100%;
+  position:relative
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+.chatbot{
+  display:block;
+  position: fixed;
+   right:0px;
+  bottom:0px;
+  height:400px;
+  width:400px;
+  border-radius: 20px 0 0 0;
+  border: 2px #f3f3f3 solid
+
+}
+
+.chatbotInput{
+  width:100%
+}
+
+.chatbotInput input{
+  position: fixed;
+  bottom: 0;
+  width:100%;
+  margin:0;
+  padding:10px;
+  border:none;
+  height:50px;
+  box-sizing: border-box;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+.chatbotMessagesContainer{
+  overflow-y: auto;
+  height:300px;
+  padding:20px;
+    
+}
+
+.chatbotHeader{
+  position:absolute;
+  margin-top: -40px;
+  /* border:1px solid black; */
+  width:100%;
+  height:40px;
+  display:flex;
+  justify-content: flex-end;
+  align-items: center;
+  
+}
+.chatbotheaderX{
+  padding-right: 20px;
+  font-weight: bold;
+  font-size:20px;
+  color: #333
+}
+
+.chatbotheaderX:hover{
+ cursor: pointer;
+}
+
+.chatbotMessage{
+  display:flex;
+  margin: 10px 0
+}
+
+.chatbotMessageFloat{
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 10px 0
+}
+
+.avatarAnBot{
+  background:red;
+  border-radius: 25px;
+  width:50px;
+  height:50px;
+  display:flex;
+  align-items: center;
+  justify-content: center
+}
+
+.avatarUser{
+  background:blue;
+  border-radius: 25px;
+  width:50px;
+  height:50px;
+  display:flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  order: 2
 }
 
-.App-link {
-  color: #61dafb;
+.messageArea{
+  display: flex;
+  align-items: center;
+  max-width:310px;
+  margin-left: 20px;
+  padding:5px 15px;
+    box-sizing: border-box;
+  background: #f8f8f8;
+  border-radius: 15px;
+  min-width: 100px;
+  min-height: 40px
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.messageAreaLeft{
+  display: flex;
+  align-items: center;
+  max-width:310px;
+  margin-right: 20px;
+  padding:5px 15px;
+  box-sizing: border-box;
+  background: #807070;
+  border-radius: 15px;
+  min-width: 100px;
+  min-height: 40px
+  
+  
 }
-
+.messageAreaLeft p {
+  width: 100%;
+  text-align: right
+}
 .border{
   border: 1px solid black
 }

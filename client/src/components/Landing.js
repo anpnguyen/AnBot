@@ -1,11 +1,11 @@
-import React , {useState} from 'react'
-import Chatbot from './Chatbot'
+import React from 'react'
+import Chatbot from './chatbot/Chatbot'
 const Landing = () => {
 
    
     return (
-        <div>
-            <h1> this is landing</h1>
+        <div className="landing">
+            
             <Chatbot/>
 
              
