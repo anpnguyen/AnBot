@@ -34,7 +34,7 @@ const Chatbot = () => {
 
   const dialogflow_text_query = async userText => {
     let says = {
-      speaks: "user",
+      speaks: "You",
       msg: {
         text: {
           text: userText
@@ -50,7 +50,7 @@ const Chatbot = () => {
 
       for (let msg of response.data.fulfillmentMessages) {
         let says = {
-          speaks: "bot",
+          speaks: "AnBot",
           msg: msg
         };
         setResponse(says);
@@ -66,7 +66,7 @@ const Chatbot = () => {
     });
     for (let msg of res.data.fulfillmentMessages) {
       let says = {
-        speaks: "bot",
+        speaks: "AnBot",
         msg: msg
       };
 

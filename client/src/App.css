@@ -98,6 +98,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-weight: bold
 }
 
 .avatarUser {
@@ -110,6 +111,7 @@ p {
   align-items: center;
   justify-content: center;
   order: 2;
+  font-weight: bold
 }
 
 .messageArea {
@@ -207,7 +209,7 @@ p {
 }
 
 .landing h2{
-  font-size: 20px;
+  font-size: 16px;
   letter-spacing: 3px;
   margin: 15px 0
 }

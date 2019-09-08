@@ -5,13 +5,13 @@ const ChatbotMessages = props => {
   return (
     <div>
       <div
-        className={speaks !== "bot" ? "chatbotMessageFloat" : "chatbotMessage"}
+        className={speaks !== "AnBot" ? "chatbotMessageFloat" : "chatbotMessage"}
       >
-        <div className={speaks === "bot" ? "avatarAnBot" : "avatarUser"}>
+        <div className={speaks === "AnBot" ? "avatarAnBot" : "avatarUser"}>
           <p>{speaks}</p>
         </div>
 
-        <div className={speaks === "bot" ? "messageArea" : "messageAreaLeft"}>
+        <div className={speaks === "AnBot" ? "messageArea" : "messageAreaLeft"}>
           <p>{text}</p>
         </div>
       </div>
