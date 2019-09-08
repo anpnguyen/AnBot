@@ -7,4 +7,4 @@ A chatbot powered by Google's Dialogflow that lets users ask questions about its
 **Technologies**: React, Express, NodeJS, MongoDB, HTML, CSS, Dialogflow
 
 
-![alt text](https://github.com/PleatherShaman/anbot/client/src/images/anbot.png "Logo Title Text 1")
+![alt text](https://github.com/PleatherShaman/AnBot/blob/master/client/src/images/AnBot.png "Logo Title Text 1")
