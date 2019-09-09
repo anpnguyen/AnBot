@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+.landing {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Roboto", sans-serif;
+}
+
+.landing h1 {
+  font-size: 40px;
+  letter-spacing: 5px;
+  margin: 15px 0;
+}
+
+.landing h2 {
+  font-size: 16px;
+  letter-spacing: 3px;
+  margin: 15px 0;
+}
+
+.landing button {
+  letter-spacing: 3px;
+  margin: 15px 0;
+}
+
+.landingImg {
+  width: 200px;
+  margin: 15px 0;
+}

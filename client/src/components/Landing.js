@@ -1,6 +1,8 @@
 import React from "react";
 import Chatbot from "./chatbot/Chatbot";
 import Avatar from "../images/ava.svg";
+import "./Landing.css";
+
 const Landing = () => {
   return (
     <div className="landing">

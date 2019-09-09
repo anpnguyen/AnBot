@@ -1,15 +1,15 @@
-import React from 'react'
+// import React from 'react'
 
-const Card = (props) => {
-    return (
-        <div className='border'>
-            <p>{props.payload.fields.header.stringValue}</p>
-            <p>{props.payload.fields.image.stringValue}</p>
-            <p>{props.payload.fields.description.stringValue}</p>
+// const Card = (props) => {
+//     return (
+//         <div className='border'>
+//             <p>{props.payload.fields.header.stringValue}</p>
+//             <p>{props.payload.fields.image.stringValue}</p>
+//             <p>{props.payload.fields.description.stringValue}</p>
             
             
-        </div>
-    )
-}
+//         </div>
+//     )
+// }
 
-export default Card
+// export default Card

@@ -1,0 +1,23 @@
+.quickReplyContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 0 10px;
+}
+
+.quickReply {
+  width: 120px;
+  background: rgb(228, 207, 207);
+  height: 50px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.quickReply:hover {
+  background: rgb(226, 195, 195);
+  cursor: pointer;
+}

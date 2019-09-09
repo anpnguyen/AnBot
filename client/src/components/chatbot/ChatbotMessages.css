@@ -1,0 +1,75 @@
+
+.chatbotMessage {
+    display: flex;
+    margin: 10px 0;
+    align-items: center
+  }
+  
+  .chatbotMessageFloat {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 15px 0;
+  }
+
+  
+.avatarAnBot {
+    background: rgb(236, 177, 177);
+    border: 2px solid rgb(182, 119, 119);
+    border-radius: 25px;
+    min-width: 50px;
+    min-height: 50px;
+    max-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold
+  }
+  
+  .avatarUser {
+    background: rgb(208, 208, 252);
+    border: solid 2px rgb(187, 187, 255);
+    border-radius: 25px;
+    min-width: 50px;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    order: 2;
+    font-weight: bold;
+    max-height: 50px;
+  }
+
+  
+
+.messageArea {
+    display: flex;
+    align-items: center;
+    max-width: 310px;
+    margin-left: 20px;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    background: #f8f8f8;
+    border-radius: 15px;
+    min-width: 50px;
+    min-height: 50px;
+  }
+  .messageAreaLeft {
+    display: flex;
+    align-items: center;
+    max-width: 310px;
+    margin-right: 20px;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    background: #eaf8fd;
+    border-radius: 15px;
+    min-width: 50px;
+    min-height: 50px;
+    border: 1px solid #def3fa;
+  }
+  .messageAreaLeft p {
+    width: 100%;
+    line-height: 20px;
+    
+  }

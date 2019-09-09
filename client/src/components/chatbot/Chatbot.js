@@ -3,7 +3,7 @@ import axios from "axios";
 import ChatbotMessages from "./ChatbotMessages";
 import Back from "../../images/Wavey-Fingerprint.svg";
 import QuickReply from "./QuickReply";
-// import QuickReplyChild from './QuickReplyChild'
+import "./Chatbot.css"
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([]);

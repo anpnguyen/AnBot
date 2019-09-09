@@ -1,4 +1,5 @@
 import React from "react";
+import './ChatbotMessages.css'
 
 const ChatbotMessages = props => {
   const { speaks, text } = props;

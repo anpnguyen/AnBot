@@ -1,16 +1,16 @@
-import React from 'react'
+// import React from 'react'
 
-const Messages = (props) => {
+// const Messages = (props) => {
 
-    const {speaks, text} = props
-    return (
-        <div className='border'>
+//     const {speaks, text} = props
+//     return (
+//         <div className='border'>
 
-            <p>{speaks}</p>
-            <p>{text}</p>
+//             <p>{speaks}</p>
+//             <p>{text}</p>
             
-        </div>
-    )
-}
+//         </div>
+//     )
+// }
 
-export default Messages
+// export default Messages

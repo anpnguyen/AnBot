@@ -1,4 +1,5 @@
 import React from "react";
+import "./QuickReplyChild.css";
 
 const QuickReplyChild = props => {
   const handleClick = event => {
@@ -19,7 +20,7 @@ const QuickReplyChild = props => {
     );
   } else {
     return (
-      <div className="border small">
+      <div className="">
         <p>{props.payload.fields.text.stringValue}</p>
         <p>{props.payload.fields.link.stringValue}</p>
       </div>
