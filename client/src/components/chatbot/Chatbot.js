@@ -1,16 +1,17 @@
-import React, { useState, useEffect, useRef, Fragment } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import ChatbotMessages from "./ChatbotMessages";
 import Back from "../../images/Wavey-Fingerprint.svg";
-import QuickReply from "./QuickReply";
-import "./Chatbot.css"
+import ChatbotHeader from "./ChatbotHeader";
+import ChatBotOpenButton from "./ChatBotOpenButton";
+import ChatbotMessagesContainer from "./ChatbotMessagesContainer";
+import "./Chatbot.css";
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([]);
   const [response, setResponse] = useState();
   const [formData, setFormData] = useState({ userMessage: "" });
   const [isOpen, setIsOpen] = useState(false);
-  const lastMessage = useRef();
+
   const inputFocus = useRef();
 
   useEffect(() => {
@@ -26,12 +27,6 @@ const Chatbot = () => {
       return null;
     }
   });
-
-  useEffect(() => {
-    if (lastMessage) {
-      lastMessage.current.scrollIntoView();
-    }
-  }, [messages]);
 
   const dialogflow_text_query = async userText => {
     let says = {
@@ -78,17 +73,6 @@ const Chatbot = () => {
     dialogflow_event_query("welcome");
   }, []);
 
-  const renderQuickReplies = (quickReplies, i) => {
-    return (
-      <QuickReply
-        key={i}
-        payload={quickReplies}
-        speaks="AnBot"
-        replyClick={handleQuickReplyPayload}
-      />
-    );
-  };
-
   const handleQuickReplyPayload = (event, payload, text) => {
     event.preventDefault();
     event.stopPropagation();
@@ -104,37 +88,6 @@ const Chatbot = () => {
       default:
         dialogflow_text_query(text);
         break;
-    }
-  };
-
-  const chatbotMessages = stateMessages => {
-    if (stateMessages) {
-      return messages.map((message, i) => {
-        if (message.msg && message.msg.text && message.msg.text.text) {
-          return (
-            <ChatbotMessages
-              speaks={message.speaks}
-              key={i}
-              text={message.msg.text.text}
-            />
-          );
-        } else if (
-          message.msg &&
-          message.msg.payload &&
-          message.msg.payload.fields &&
-          message.msg.payload.fields.quickReplies
-        ) {
-          return (
-            <Fragment key={i}>
-              {renderQuickReplies(
-                message.msg.payload.fields.quickReplies.listValue.values
-              )}
-            </Fragment>
-          );
-        }
-      });
-    } else {
-      return null;
     }
   };
 
@@ -156,15 +109,12 @@ const Chatbot = () => {
   return (
     <>
       <div className={`chatbot ${isOpen ? "open" : "close"}`} style={style}>
-        <div className="chatbotHeader">
-          <div className="chatbotheaderX" onClick={() => setIsOpen(!isOpen)}>
-            x
-          </div>
-        </div>
-        <div className="chatbotMessagesContainer">
-          {chatbotMessages(messages)}
-          <div ref={lastMessage}></div>
-        </div>
+        <ChatbotHeader setIsOpen={setIsOpen} isOpen={isOpen} />
+        <ChatbotMessagesContainer
+          messages={messages}
+          handleQuickReplyPayload={handleQuickReplyPayload}
+        />
+
         <div className="chatbotInput">
           <input
             type="text"
@@ -178,11 +128,7 @@ const Chatbot = () => {
         </div>
       </div>
 
-      <div className={`${!isOpen ? "open" : "close"} chatbotButtonContainer`}>
-        <button className="chatbotButton" onClick={() => setIsOpen(!isOpen)}>
-          Chat with me!
-        </button>
-      </div>
+      <ChatBotOpenButton isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   );
 };

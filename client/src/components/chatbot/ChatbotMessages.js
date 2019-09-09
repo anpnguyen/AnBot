@@ -1,12 +1,14 @@
 import React from "react";
-import './ChatbotMessages.css'
+import "./ChatbotMessages.css";
 
 const ChatbotMessages = props => {
   const { speaks, text } = props;
   return (
     <div>
       <div
-        className={speaks !== "AnBot" ? "chatbotMessageFloat" : "chatbotMessage"}
+        className={
+          speaks !== "AnBot" ? "chatbotMessageFloat" : "chatbotMessage"
+        }
       >
         <div className={speaks === "AnBot" ? "avatarAnBot" : "avatarUser"}>
           <p>{speaks}</p>

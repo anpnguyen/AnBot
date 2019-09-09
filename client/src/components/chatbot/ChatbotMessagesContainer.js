@@ -1,40 +1,64 @@
-import React from 'react'
-import ChatBotMessages from './ChatbotMessages'
+import React, { Fragment, useRef, useEffect } from "react";
+import ChatbotMessages from "./ChatbotMessages";
+import QuickReply from "./QuickReply";
 
-const ChatbotMessagesContainer = (props) => {
-    const {messages} = props
+const ChatbotMessagesContainer = props => {
+  const { messages, handleQuickReplyPayload } = props;
+  const lastMessage = useRef();
 
-    console.log(messages)
-    const renderMessages = (messages)=>{
-        messages.map((message, i) => {
-            if (message.msg && message.msg.text && message.msg.text.text) {
-              return (
-                <>
-                <p>{message.msg.text.text}</p>   
-                <ChatBotMessages
-                  speaks={message.speaks}
-                  key={i}
-                  text={message.msg.text.text}
-                />
-                </>
-              );
-    } else{
-        return null
+  useEffect(() => {
+    if (lastMessage) {
+      lastMessage.current.scrollIntoView();
     }
-    })}
-    
-    
-    
-    
-        
+  }, [messages]);
+
+  const chatbotMessages = stateMessages => {
+    if (stateMessages) {
+      return messages.map((message, i) => {
+        if (message.msg && message.msg.text && message.msg.text.text) {
+          return (
+            <ChatbotMessages
+              speaks={message.speaks}
+              key={i}
+              text={message.msg.text.text}
+            />
+          );
+        } else if (
+          message.msg &&
+          message.msg.payload &&
+          message.msg.payload.fields &&
+          message.msg.payload.fields.quickReplies
+        ) {
+          return (
+            <Fragment key={i}>
+              {renderQuickReplies(
+                message.msg.payload.fields.quickReplies.listValue.values
+              )}
+            </Fragment>
+          );
+        }
+      });
+    } else {
+      return null;
+    }
+  };
+
+  const renderQuickReplies = (quickReplies, i) => {
     return (
-        <div>
-            <h1>this is the containe</h1>
-            {renderMessages(messages)}
-        </div>
-    )
-}
+      <QuickReply
+        key={i}
+        payload={quickReplies}
+        speaks="AnBot"
+        replyClick={handleQuickReplyPayload}
+      />
+    );
+  };
+  return (
+    <div className="chatbotMessagesContainer">
+      {chatbotMessages(messages)}
+      <div ref={lastMessage}></div>
+    </div>
+  );
+};
 
-export default ChatbotMessagesContainer
-
-
+export default ChatbotMessagesContainer;

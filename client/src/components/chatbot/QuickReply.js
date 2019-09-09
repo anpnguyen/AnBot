@@ -8,7 +8,7 @@ const QuickReply = props => {
     props.replyClick(event, payload, text);
   };
 
-  const renderQuickReplies = quickReplies => {
+  const renderQuickReply = quickReplies => {
     if (quickReplies) {
       return quickReplies.map((quickReply, i) => {
         return (
@@ -36,11 +36,10 @@ const QuickReply = props => {
         </div>
 
         <div className="quickReplyContainer">
-          {renderQuickReplies(props.payload)}
+          {renderQuickReply(props.payload)}
         </div>
       </div>
     </div>
-
   );
 };
 

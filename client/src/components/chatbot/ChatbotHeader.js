@@ -1,11 +1,17 @@
-import React from 'react'
+import React from "react";
+import './ChatbotHeader.css'
 
-const ChatbotHeader = () => {
-    return (
-        <div>
-            <h1>this will have the avatar</h1>
-        </div>
-    )
-}
+const ChatbotHeader = (props) => {
 
-export default ChatbotHeader
+    const {isOpen, setIsOpen} = props
+
+  return (
+    <div className="chatbotHeader">
+      <div className="chatbotheaderX" onClick={() => setIsOpen(!isOpen)}>
+        x
+      </div>
+    </div>
+  );
+};
+
+export default ChatbotHeader;
