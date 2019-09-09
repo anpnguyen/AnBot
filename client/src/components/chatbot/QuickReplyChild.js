@@ -2,8 +2,10 @@ import React from "react";
 import "./QuickReplyChild.css";
 
 const QuickReplyChild = props => {
+
+  // console.log(props)
   const handleClick = event => {
-    props.click(
+    props.handleQuickReplyPayload(
       event,
       props.payload.fields.payload.stringValue,
       props.payload.fields.text.stringValue

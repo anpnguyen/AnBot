@@ -60,6 +60,8 @@ const Chatbot = () => {
     const res = await axios.post("/dialogflow_event_query", {
       event: eventName
     });
+
+    console.log(res)
     for (let msg of res.data.fulfillmentMessages) {
       let says = {
         speaks: "AnBot",
@@ -76,6 +78,7 @@ const Chatbot = () => {
   const handleQuickReplyPayload = (event, payload, text) => {
     event.preventDefault();
     event.stopPropagation();
+    console.log(payload)
 
     switch (payload) {
       case "career_science":

@@ -2,11 +2,11 @@ import React from "react";
 import QuickReplyChild from "./QuickReplyChild";
 
 const QuickReply = props => {
-  const { speaks } = props;
+  const { speaks, handleQuickReplyPayload } = props;
 
-  const handleClick = (event, payload, text) => {
-    props.replyClick(event, payload, text);
-  };
+  // const handleClick = (event, payload, text) => {
+  //   props.replyClick(event, payload, text);
+  // };
 
   const renderQuickReply = quickReplies => {
     if (quickReplies) {
@@ -15,7 +15,7 @@ const QuickReply = props => {
           <QuickReplyChild
             key={i}
             payload={quickReply.structValue}
-            click={handleClick}
+            handleQuickReplyPayload={handleQuickReplyPayload}
           />
         );
       });

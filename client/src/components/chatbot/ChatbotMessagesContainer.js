@@ -31,7 +31,7 @@ const ChatbotMessagesContainer = props => {
         ) {
           return (
             <Fragment key={i}>
-              {renderQuickReplies(
+              {renderQuickReply(
                 message.msg.payload.fields.quickReplies.listValue.values
               )}
             </Fragment>
@@ -43,13 +43,13 @@ const ChatbotMessagesContainer = props => {
     }
   };
 
-  const renderQuickReplies = (quickReplies, i) => {
+  const renderQuickReply = (quickReplies, i) => {
     return (
       <QuickReply
         key={i}
         payload={quickReplies}
         speaks="AnBot"
-        replyClick={handleQuickReplyPayload}
+        handleQuickReplyPayload={handleQuickReplyPayload}
       />
     );
   };
