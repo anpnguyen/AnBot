@@ -54,9 +54,11 @@ const ChatbotMessagesContainer = props => {
     );
   };
   return (
-    <div className="chatbotMessagesContainer">
+    <div className="chatbotMessagesContainer scrollbar" id='scroll'>
+      <div className="force">
       {chatbotMessages(messages)}
       <div ref={lastMessage}></div>
+      </div>
     </div>
   );
 };
