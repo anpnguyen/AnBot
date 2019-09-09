@@ -33,7 +33,6 @@
   padding: 20px;
 }
 
-
 .chatbotButtonContainer {
   position: absolute;
   right: 10px;
@@ -74,19 +73,54 @@
   display: none;
 }
 
-
 #scroll::-webkit-scrollbar {
   width: 6px;
-  background-color: #F5F5F5;
-} 
+  background-color: #f5f5f5;
+}
 
 #scroll::-webkit-scrollbar-thumb {
-	border-radius: 10px;
-	background-color: rgb(197, 197, 197);
-  height:30px !important
+  border-radius: 10px;
+  background-color: rgb(197, 197, 197);
+  height: 30px !important;
 }
 
 #scroll::-webkit-scrollbar-track {
-	border-radius: 10px;
-	background-color: #F5F5F5;
+  border-radius: 10px;
+  background-color: #f5f5f5;
+}
+
+@media only screen and (max-width: 410px) {
+  .chatbot {
+    height: 500px;
+    width: 100%;
+    border-radius: 0;
+  }
+}
+
+@media only screen and (max-height: 450px) {
+  .chatbot {
+    height: 90%;
+    width: 100%;
+    border-radius: 0;
+  }
+  .chatbotInput input {
+    width: 100%;
+  }
+  .chatbotMessagesContainer {
+    height: 250px;
+  }
+}
+
+@media only screen and (max-height: 360px) {
+  .chatbot {
+    height: 90%;
+    width: 100%;
+    border-radius: 0;
+  }
+  .chatbotInput input {
+    width: 100%;
+  }
+  .chatbotMessagesContainer {
+    height: 200px;
+  }
 }

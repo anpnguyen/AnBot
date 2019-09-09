@@ -8,18 +8,22 @@
   justify-content: center;
   align-items: center;
   font-family: "Roboto", sans-serif;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .landing h1 {
   font-size: 40px;
   letter-spacing: 5px;
   margin: 15px 0;
+  text-align: center;
 }
 
 .landing h2 {
   font-size: 16px;
   letter-spacing: 3px;
   margin: 15px 0;
+  text-align: center;
 }
 
 .landing button {
@@ -30,4 +34,30 @@
 .landingImg {
   width: 200px;
   margin: 15px 0;
+}
+
+@media only screen and (max-width: 480px) {
+  .landing h1 {
+    font-size: 20px;
+  }
+
+  .landing h2 {
+    font-size: 12px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .landing h1 {
+    font-size: 20px;
+  }
+
+  .landing h2 {
+    font-size: 12px;
+  }
+}
+
+@media only screen and (max-height: 450px) {
+  .landingImg {
+    display:none
+  }
 }
